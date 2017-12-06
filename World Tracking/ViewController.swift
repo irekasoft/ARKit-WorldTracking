@@ -38,10 +38,46 @@ class ViewController: UIViewController {
   @IBAction func add(_ sender: Any) {
 
 //    addGeometryAtRandomPlace()
-      addShapeGeometry()
+//    addShapeGeometry()
+
+    addRelativeItems()
+
     
   }
   
+  func addRelativeItems(){
+    
+    let cylinderNode = SCNNode(geometry: SCNCylinder(radius: 0.05, height: 0.05))
+    cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+    cylinderNode.position = SCNVector3(-0.1, 0.3, -0.2)
+    
+    let pyramidNode = SCNNode(geometry: SCNPyramid(width: 0.1, height: 0.1, length: 0.1))
+    pyramidNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+    pyramidNode.geometry?.firstMaterial?.specular.contents = UIColor.white
+    pyramidNode.position = SCNVector3(0.2, 0.3, -0.2)
+    
+    sceneView.scene.rootNode.addChildNode(cylinderNode)
+    sceneView.scene.rootNode.addChildNode(pyramidNode)
+    
+    
+    
+  }
+  
+  func addText(text: String){
+    
+    let node = SCNNode()
+    
+    node.geometry = SCNText(string: text, extrusionDepth: 0.2)
+    
+    node.geometry?.firstMaterial?.specular.contents = UIColor.white
+    node.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+    
+    // x, y, z
+    node.position = SCNVector3(0,0, -2)
+    
+    sceneView.scene.rootNode.addChildNode(node)
+    
+  }
   
   func addShapeGeometry(){
     
@@ -52,6 +88,7 @@ class ViewController: UIViewController {
     path.addLine(to: CGPoint(x: 0, y: 0.2))
     path.addLine(to: CGPoint(x: 0.2, y: 0.3))
     path.addLine(to: CGPoint(x: 0.4, y: 0.2))
+    path.addLine(to: CGPoint(x: 0.4, y: 0.0))
     
     node.geometry = SCNShape(path: path, extrusionDepth: 0.2)
 
