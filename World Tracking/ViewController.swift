@@ -39,9 +39,59 @@ class ViewController: UIViewController {
 
 //    addGeometryAtRandomPlace()
 //    addShapeGeometry()
+//    addRelativeItems()
+//    addHouse()
+    
+    addPlaneWithRotation()
+    
+  }
+  
+  func addPlaneWithRotation(){
+    
+    let plane = SCNNode(geometry: SCNPlane(width: 0.3, height: 0.3))
+    plane.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+    plane.position = SCNVector3(0,0,-0.3)
+    
+    plane.eulerAngles = SCNVector3(0,90.degreesToRadians,0)
+    
+    sceneView.scene.rootNode.addChildNode(plane)
+    
+  }
+  
+  func addPyramidWithRotation(){
+    
+    let pyramid = SCNNode(geometry: SCNPyramid(width: 0.1, height: 0.1, length: 0.1))
+    pyramid.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+    pyramid.position = SCNVector3(0,0,-0.3)
+    
+    pyramid.eulerAngles = SCNVector3(180.degreesToRadians,0,0)
+   
+    sceneView.scene.rootNode.addChildNode(pyramid)
+    
+    
+  }
+  
+  func addHouse(){
+    
+    let boxNode = SCNNode(geometry: SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0))
+    boxNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+    boxNode.position = SCNVector3(0,0,-0.3)
+    
+    let pyramidNode = SCNNode(geometry: SCNPyramid(width: 0.1, height: 0.1, length: 0.1))
+    pyramidNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+    pyramidNode.position = SCNVector3(0,0.05,0)
+    
+    let planeNode = SCNNode(geometry: SCNPlane(width: 0.03, height: 0.06))
+    planeNode.geometry?.firstMaterial?.diffuse.contents = UIColor.brown
+    planeNode.position = SCNVector3(0,-0.02,0.05001)
 
-    addRelativeItems()
-
+    
+    
+    sceneView.scene.rootNode.addChildNode(boxNode)
+    boxNode.addChildNode(pyramidNode)
+    boxNode.addChildNode(planeNode)
+    
+    
     
   }
   
@@ -54,10 +104,13 @@ class ViewController: UIViewController {
     let pyramidNode = SCNNode(geometry: SCNPyramid(width: 0.1, height: 0.1, length: 0.1))
     pyramidNode.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
     pyramidNode.geometry?.firstMaterial?.specular.contents = UIColor.white
-    pyramidNode.position = SCNVector3(0.2, 0.3, -0.2)
+    pyramidNode.position = SCNVector3(0, 0.1, 0)
     
     sceneView.scene.rootNode.addChildNode(cylinderNode)
-    sceneView.scene.rootNode.addChildNode(pyramidNode)
+    
+    cylinderNode.addChildNode(pyramidNode)
+    
+//    sceneView.scene.rootNode.addChildNode(cylinder)
     
     
     
@@ -160,4 +213,12 @@ class ViewController: UIViewController {
   
   
 }
+
+
+extension Int {
+  
+  var degreesToRadians: Double { return Double(self) * .pi / 180 }
+  
+}
+
 
