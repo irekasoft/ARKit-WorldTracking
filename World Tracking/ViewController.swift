@@ -40,9 +40,27 @@ class ViewController: UIViewController {
 //    addGeometryAtRandomPlace()
 //    addShapeGeometry()
 //    addRelativeItems()
+//    addCylinderWithRotation()
 //    addHouse()
+      addJellyFish()
+
     
-    addPlaneWithRotation()
+  }
+  
+  func addJellyFish(){
+    
+    let jellyFishScene = SCNScene(named: "art.scnassets/Jellyfish.scn")
+    
+    if let jellyFishNode = jellyFishScene?.rootNode.childNode(withName: "Jellyfish", recursively: false) {
+      
+      
+      jellyFishNode.position = SCNVector3(self.randomNumbers(firstNum: -1, secondNum: 1),
+                                          self.randomNumbers(firstNum: -0.5, secondNum: 0.5),
+                                          self.randomNumbers(firstNum: -1, secondNum: 1))
+      
+      self.sceneView.scene.rootNode.addChildNode(jellyFishNode)
+    
+    }
     
   }
   
@@ -57,6 +75,19 @@ class ViewController: UIViewController {
     sceneView.scene.rootNode.addChildNode(plane)
     
   }
+  
+  func addCylinderWithRotation(){
+    
+    let cylinder = SCNNode(geometry: SCNCylinder(radius: 0.3, height: 0.5))
+    cylinder.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+    cylinder.position = SCNVector3(0,0,-0.3)
+    
+    cylinder.eulerAngles = SCNVector3(0,0,90.degreesToRadians)
+    
+    sceneView.scene.rootNode.addChildNode(cylinder)
+    
+  }
+  
   
   func addPyramidWithRotation(){
     
@@ -88,6 +119,9 @@ class ViewController: UIViewController {
     
     
     sceneView.scene.rootNode.addChildNode(boxNode)
+    
+    boxNode.eulerAngles = SCNVector3(180.degreesToRadians,0,0)
+    
     boxNode.addChildNode(pyramidNode)
     boxNode.addChildNode(planeNode)
     
