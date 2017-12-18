@@ -38,12 +38,14 @@ class ViewController: UIViewController {
   @IBAction func add(_ sender: Any) {
 
 //    addGeometryAtRandomPlace()
-//    addShapeGeometry()
+
 //    addRelativeItems()
 //    addCylinderWithRotation()
 //    addHouse()
-      addJellyFish()
-
+//      addJellyFish()
+    
+    addText(text: "Hijazi")
+    addShapeGeometry()
     
   }
   
